@@ -5,10 +5,18 @@ var renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
+// player
 var geometry = new THREE.BoxGeometry( 0.2, 1, 0.2 );
 var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 var player = new THREE.Mesh( geometry, material );
 scene.add( player );
+
+// obstacle
+var geometry = new THREE.BoxGeometry( 0.2, 1, 0.2 );
+var material = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
+var obstacle = new THREE.Mesh( geometry, material );
+obstacle.position.x += 1;
+scene.add( obstacle );
 
 camera.position.z = 5;
 
