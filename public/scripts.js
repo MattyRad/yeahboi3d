@@ -28,6 +28,10 @@ var animate = function () {
 
     obstacle.position.x -= 0.01;
 
+    if (obstacle.position.x < (initial_x - 1)) {
+        obstacle.position.x = 1;
+    }
+
 	renderer.render(scene, camera);
 };
 
