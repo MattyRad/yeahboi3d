@@ -25,6 +25,9 @@ scene.add( obstacle );
 camera.position.z = 5;
 
 var jumping = false;
+var jump_distance = 0.1;
+var acceleration = 0.0025;
+var acceleration_step = 0.0025;
 
 var animate = function () {
     requestAnimationFrame( animate );
@@ -40,8 +43,24 @@ var animate = function () {
     }
 
     if (jumping) {
-       player.position.y += 0.02;
+       acceleration_step = acceleration_step * (1 + acceleration);
+
+       jump_distance -= acceleration_step;
+
+       player.position.y += jump_distance;
     }
+
+    if (player.position.y < initial_y) { // hit the "ground"
+        jumping = false;
+
+        // reset our acceleration calculations
+        jump_distance = 0.1;
+        acceleration_step = acceleration;
+
+        // may have overshot, hard reset
+        player.position.y = initial_y;
+    }
+
 
     for (var vi = 0; vi < player.geometry.vertices.length; vi++) {
         var localVertex = player.geometry.vertices[vi].clone();
