@@ -1,5 +1,6 @@
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+var keyboard = new THREEx.KeyboardState();
 
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
@@ -23,6 +24,8 @@ scene.add( obstacle );
 
 camera.position.z = 5;
 
+var jumping = false;
+
 var animate = function () {
     requestAnimationFrame( animate );
 
@@ -30,6 +33,14 @@ var animate = function () {
 
     if (obstacle.position.x < (initial_x - 1)) {
         obstacle.position.x = 1;
+    }
+
+    if (keyboard.pressed("space")) {
+       jumping = true;
+    }
+
+    if (jumping) {
+       player.position.y += 0.01;
     }
 
     renderer.render(scene, camera);
