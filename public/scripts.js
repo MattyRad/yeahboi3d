@@ -9,6 +9,9 @@ document.body.appendChild( renderer.domElement );
 var geometry = new THREE.BoxGeometry( 0.2, 1, 0.2 );
 var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 var player = new THREE.Mesh( geometry, material );
+var initial_x = player.position.x;
+var initial_y = player.position.y;
+var initial_z = player.position.z;
 scene.add( player );
 
 // obstacle
@@ -22,6 +25,8 @@ camera.position.z = 5;
 
 var animate = function () {
 	requestAnimationFrame( animate );
+
+    obstacle.position.x -= 0.01;
 
 	renderer.render(scene, camera);
 };
