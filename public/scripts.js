@@ -40,7 +40,21 @@ var animate = function () {
     }
 
     if (jumping) {
-       player.position.y += 0.01;
+       player.position.y += 0.02;
+    }
+
+    for (var vi = 0; vi < player.geometry.vertices.length; vi++) {
+        var localVertex = player.geometry.vertices[vi].clone();
+        var globalVertex = localVertex.applyMatrix4( player.matrix );
+        var directionVector = globalVertex.sub( player.position );
+        var originPoint = player.position.clone();
+
+        var ray = new THREE.Raycaster( originPoint, directionVector.clone().normalize() );
+        var collisionResults = ray.intersectObjects([obstacle]);
+
+        if ( collisionResults.length > 0 && collisionResults[0].distance < directionVector.length() ) {
+            throw Error('game over!');
+        }
     }
 
     renderer.render(scene, camera);
