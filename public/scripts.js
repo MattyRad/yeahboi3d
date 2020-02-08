@@ -24,7 +24,7 @@ scene.add( obstacle );
 camera.position.z = 5;
 
 var animate = function () {
-	requestAnimationFrame( animate );
+    requestAnimationFrame( animate );
 
     obstacle.position.x -= 0.01;
 
@@ -32,7 +32,7 @@ var animate = function () {
         obstacle.position.x = 1;
     }
 
-	renderer.render(scene, camera);
+    renderer.render(scene, camera);
 };
 
 animate();
