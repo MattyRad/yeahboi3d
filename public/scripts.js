@@ -15,12 +15,17 @@ var initial_y = player.position.y;
 var initial_z = player.position.z;
 scene.add( player );
 
-// obstacle
-var geometry = new THREE.BoxGeometry( 0.2, 1, 0.2 );
-var material = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
-var obstacle = new THREE.Mesh( geometry, material );
-obstacle.position.x += 1;
-scene.add( obstacle );
+// obstacles
+var obstacles = [];
+
+for (var i = 0; i < 5; i++) {
+    var geometry = new THREE.BoxGeometry( 0.2, 1, 0.2 );
+    var material = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
+    var obstacle = new THREE.Mesh( geometry, material );
+    obstacle.position.x = 1 + i;
+    obstacles.push(obstacle);
+    scene.add( obstacle );
+}
 
 camera.position.z = 5;
 
@@ -32,10 +37,12 @@ var acceleration_step = 0.0025;
 var animate = function () {
     requestAnimationFrame( animate );
 
-    obstacle.position.x -= 0.01;
+    for (var i = 0; i < obstacles.length; i++) {
+        obstacles[i].position.x -= 0.01;
 
-    if (obstacle.position.x < (initial_x - 1)) {
-        obstacle.position.x = 1;
+        if (obstacles[i].position.x < (initial_x - 1)) {
+            obstacles[i].position.x = obstacles.length;
+        }
     }
 
     if (keyboard.pressed("space")) {
@@ -69,7 +76,7 @@ var animate = function () {
         var originPoint = player.position.clone();
 
         var ray = new THREE.Raycaster( originPoint, directionVector.clone().normalize() );
-        var collisionResults = ray.intersectObjects([obstacle]);
+        var collisionResults = ray.intersectObjects(obstacles);
 
         if ( collisionResults.length > 0 && collisionResults[0].distance < directionVector.length() ) {
             throw Error('game over!');
