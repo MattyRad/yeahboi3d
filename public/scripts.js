@@ -7,8 +7,8 @@ document.body.appendChild( renderer.domElement );
 
 var geometry = new THREE.BoxGeometry( 0.2, 1, 0.2 );
 var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-var cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
+var player = new THREE.Mesh( geometry, material );
+scene.add( player );
 
 camera.position.z = 5;
 
