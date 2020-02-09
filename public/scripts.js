@@ -18,11 +18,11 @@ scene.add( player );
 // obstacles
 var obstacles = [];
 
-for (var i = 0; i < 5; i++) {
+for (var i = 0; i < 100; i++) {
     var geometry = new THREE.BoxGeometry( 0.2, 1, 0.2 );
     var material = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
     var obstacle = new THREE.Mesh( geometry, material );
-    obstacle.position.x = 1 + i;
+    obstacle.position.x = 10 + Math.floor(Math.random() * 300);
     obstacles.push(obstacle);
     scene.add( obstacle );
 }
@@ -38,10 +38,10 @@ var animate = function () {
     requestAnimationFrame( animate );
 
     for (var i = 0; i < obstacles.length; i++) {
-        obstacles[i].position.x -= 0.01;
+        obstacles[i].position.x -= 0.05;
 
-        if (obstacles[i].position.x < (initial_x - 1)) {
-            obstacles[i].position.x = obstacles.length;
+        if (obstacles[i].position.x < (initial_x - 15)) {
+            obstacles[i].position.x = 10 + Math.floor(Math.random() * 300);
         }
     }
 
