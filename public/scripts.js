@@ -1,6 +1,7 @@
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
 var keyboard = new THREEx.KeyboardState();
+var clock = new THREE.Clock();
 
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
@@ -49,6 +50,10 @@ var radius = 7;
 var thetaX = 0;
 var thetaY = 0;
 var thetaZ = 0;
+
+var trails = [];
+var last_trail_emitted_at = null;
+var trail_time_interval = 0.4;
 
 function degrees_to_radians(degrees)
 {
@@ -103,7 +108,6 @@ var animate = function () {
         player.position.y = initial_y;
     }
 
-
     for (var vi = 0; vi < player.geometry.vertices.length; vi++) {
         var localVertex = player.geometry.vertices[vi].clone();
         var globalVertex = localVertex.applyMatrix4( player.matrix );
@@ -116,6 +120,29 @@ var animate = function () {
         if ( collisionResults.length > 0 && collisionResults[0].distance < directionVector.length() ) {
             throw Error('game over!');
         }
+    }
+
+    var delta = clock.getElapsedTime();
+
+    if (last_trail_emitted_at === null || delta > (last_trail_emitted_at + trail_time_interval)) {
+        last_trail_emitted_at = delta;
+
+        var trail = new THREE.Mesh(
+            geometry,
+            new THREE.MeshBasicMaterial( { color: 0x555555, opacity: 0.8, transparent: true } )
+        );
+
+        trail.position.x = player.position.x;
+        trail.position.z = player.position.z;
+        trail.position.y = player.position.y;
+
+        trails.push(trail);
+
+        scene.add(trail);
+    }
+
+    for (var i = 0; i < trails.length; i++) {
+        trails[i].position.x -= 0.05;
     }
 
     renderer.render(scene, camera);
