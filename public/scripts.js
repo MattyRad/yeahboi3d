@@ -8,7 +8,7 @@ document.body.appendChild( renderer.domElement );
 
 // player
 var geometry = new THREE.BoxGeometry( 0.2, 1, 0.2 );
-var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+var material = new THREE.MeshNormalMaterial( { color: 0x00ff00 } );
 var player = new THREE.Mesh( geometry, material );
 var initial_x = player.position.x;
 var initial_y = player.position.y;
@@ -20,7 +20,7 @@ var obstacles = [];
 
 for (var i = 0; i < 100; i++) {
     var geometry = new THREE.BoxGeometry( 0.2, 1, 0.2 );
-    var material = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
+    var material = new THREE.MeshNormalMaterial( { color: 0xff0000 } );
     var obstacle = new THREE.Mesh( geometry, material );
     obstacle.position.x = 10 + Math.floor(Math.random() * 300);
     obstacles.push(obstacle);
