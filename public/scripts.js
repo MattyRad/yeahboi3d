@@ -41,6 +41,17 @@ scene.add(lights[0]);
 scene.add(lights[1]);
 scene.add(lights[2]);
 
+var plane = new THREE.Mesh(
+    new THREE.PlaneBufferGeometry( 1000, 1000 ),
+    new THREE.MeshBasicMaterial( { color: 0x997744 } )
+);
+plane.rotation.x = - Math.PI / 2;
+plane.position.y = -1;
+//plane.receiveShadow = true;
+scene.add( plane );
+
+scene.background = new THREE.Color( 0x99ffff );
+
 var jumping = false;
 var jump_distance = 0.1;
 var acceleration = 0.0025;
