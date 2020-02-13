@@ -52,7 +52,7 @@ scene.add( plane );
 
 scene.background = new THREE.Color( 0x99ffff );
 
-var jumping = false;
+var jumping = doublejumping = false;
 var jump_distance = 0.1;
 var acceleration = 0.0025;
 var acceleration_step = 0.0025;
@@ -97,10 +97,16 @@ var animate = function () {
     }
 
     if (keyboard.pressed("space")) {
+        if (jumping && ! doublejumping && jump_distance < 0.07) {
+            jump_distance = 0.1;
+            acceleration_step = acceleration;
+            doublejumping = true;
+        }
+
        jumping = true;
     }
 
-    if (jumping) {
+    if (jumping || doublejumping) {
        acceleration_step = acceleration_step * (1 + acceleration);
 
        jump_distance -= acceleration_step;
@@ -109,7 +115,7 @@ var animate = function () {
     }
 
     if (player.position.y < initial_y) { // hit the "ground"
-        jumping = false;
+        jumping = doublejumping = false;
 
         // reset our acceleration calculations
         jump_distance = 0.1;
