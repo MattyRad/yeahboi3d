@@ -27,15 +27,37 @@ for (var i = 0; i < 100; i++) {
     scene.add( obstacle );
 }
 
-camera.position.z = 5;
-
 var jumping = false;
 var jump_distance = 0.1;
 var acceleration = 0.0025;
 var acceleration_step = 0.0025;
 
+var radius = 7;
+var thetaX = 0;
+var thetaY = 0;
+var thetaZ = 0;
+
+function degrees_to_radians(degrees)
+{
+    var pi = Math.PI;
+    return degrees * (pi/180);
+}
+
+function oscillateCamera() {
+    thetaX += 0.1;
+    thetaY += 0.05;
+    thetaZ += 0.05;
+
+    camera.position.x = radius * Math.sin( degrees_to_radians( thetaX ) );
+    camera.position.y = radius * Math.sin( degrees_to_radians( thetaY ) );
+    camera.position.z = 3 + radius * Math.cos( degrees_to_radians( thetaZ ) );
+    camera.lookAt( scene.position );
+}
+
 var animate = function () {
     requestAnimationFrame( animate );
+
+    oscillateCamera();
 
     for (var i = 0; i < obstacles.length; i++) {
         obstacles[i].position.x -= 0.05;
