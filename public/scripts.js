@@ -101,9 +101,18 @@ var animate = function () {
             jump_distance = 0.1;
             acceleration_step = acceleration;
             doublejumping = true;
+            player.rotation.z -= 0.05; // poke
         }
 
        jumping = true;
+    }
+
+    if (player.rotation.z < 0) {
+        player.rotation.z -= 0.05;
+
+        if (player.rotation.z < -3) {
+            player.rotation.z = 0;
+        }
     }
 
     if (jumping || doublejumping) {
@@ -152,6 +161,9 @@ var animate = function () {
         trail.position.x = player.position.x;
         trail.position.z = player.position.z;
         trail.position.y = player.position.y;
+        trail.rotation.x = player.rotation.x;
+        trail.rotation.z = player.rotation.z;
+        trail.rotation.y = player.rotation.y;
 
         trails.push(trail);
 
