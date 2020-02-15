@@ -83,6 +83,35 @@ function oscillateCamera() {
     camera.lookAt( scene.position );
 }
 
+var yeahboi_text = null;
+var yeahboi_text_position = -3;
+
+var setupText = function () {
+    var loader = new THREE.FontLoader();
+
+    loader.load("https://s3-us-west-2.amazonaws.com/s.cdpn.io/254249/helvetiker_regular.typeface.json", function (font) {
+        var message = "YEAHBO";
+
+        var text_geometry = new THREE.TextGeometry(message, {
+            font: font,
+            size: 1,
+            height: 0.2,
+            curveSegments: 12
+        });
+
+        var text_material = new THREE.MeshBasicMaterial( { color: 0x444444, opacity: 0.8, transparent: true } )
+
+        text_geometry.center();
+
+        yeahboi_text = new THREE.Mesh(text_geometry, text_material);
+        yeahboi_text.position.x -= yeahboi_text_position;
+
+        scene.add(yeahboi_text);
+    });
+};
+
+setupText();
+
 var animate = function () {
     requestAnimationFrame( animate );
 
@@ -94,6 +123,12 @@ var animate = function () {
         if (obstacles[i].position.x < (initial_x - 50)) {
             obstacles[i].position.x = player.position.x + 20 + Math.floor(Math.random() * 300);
         }
+    }
+
+    yeahboi_text_position -= 0.05;
+
+    if (yeahboi_text) {
+        yeahboi_text.position.x = yeahboi_text_position;
     }
 
     if (keyboard.pressed("space")) {
