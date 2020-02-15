@@ -112,6 +112,16 @@ var setupText = function () {
 
 setupText();
 
+var sound = new Howl({
+    src: ['/mp3/sound.mp3'],
+    autoplay: true,
+    loop: true,
+    volume: 0.25,
+    onend: function() {
+        sound.seek(5);
+    }
+});
+
 var animate = function () {
     requestAnimationFrame( animate );
 
@@ -179,6 +189,8 @@ var animate = function () {
         var collisionResults = ray.intersectObjects(obstacles);
 
         if ( collisionResults.length > 0 && collisionResults[0].distance < directionVector.length() ) {
+            sound.pause();
+
             throw Error('game over!');
         }
     }
