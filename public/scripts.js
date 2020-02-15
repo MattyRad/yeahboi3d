@@ -1,5 +1,5 @@
 var scene = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+var camera = new THREE.PerspectiveCamera( 45, window.innerWidth/window.innerHeight, 0.1, 1000 );
 var keyboard = new THREEx.KeyboardState();
 var clock = new THREE.Clock();
 
@@ -73,13 +73,13 @@ function degrees_to_radians(degrees)
 }
 
 function oscillateCamera() {
-    thetaX += 0.1;
-    thetaY += 0.05;
-    thetaZ += 0.05;
+    thetaX += 0.3;
+    thetaY += 0.03;
+    thetaZ += 0.001;
 
     camera.position.x = radius * Math.sin( degrees_to_radians( thetaX ) );
     camera.position.y = radius * Math.sin( degrees_to_radians( thetaY ) );
-    camera.position.z = 3 + radius * Math.cos( degrees_to_radians( thetaZ ) );
+    camera.position.z = 10 + radius * Math.cos( degrees_to_radians( thetaZ ) );
     camera.lookAt( scene.position );
 }
 
@@ -91,8 +91,8 @@ var animate = function () {
     for (var i = 0; i < obstacles.length; i++) {
         obstacles[i].position.x -= 0.05;
 
-        if (obstacles[i].position.x < (initial_x - 15)) {
-            obstacles[i].position.x = 10 + Math.floor(Math.random() * 300);
+        if (obstacles[i].position.x < (initial_x - 50)) {
+            obstacles[i].position.x = player.position.x + 20 + Math.floor(Math.random() * 300);
         }
     }
 
@@ -155,7 +155,7 @@ var animate = function () {
 
         var trail = new THREE.Mesh(
             geometry,
-            new THREE.MeshBasicMaterial( { color: 0x555555, opacity: 0.8, transparent: true } )
+            new THREE.MeshBasicMaterial( { color: 0x444444, opacity: 0.8, transparent: true } )
         );
 
         trail.position.x = player.position.x;
