@@ -120,10 +120,30 @@ var sound = new Howl({
 
 var frame = 0;
 
+var lose = lose_dialog_shown = false;
+
 var animate = function () {
     frame++;
 
     requestAnimationFrame( animate );
+
+    if (lose) {
+        if (! lose_dialog_shown) {
+            lose_dialog_shown = true;
+
+            var i_concat = '';
+
+            for (var i = 0; i < trails.length; i++) {
+                i_concat = i_concat + 'I';
+            }
+
+            alerted = true;
+
+            alert('YEAH BO' + i_concat + "\nScore: " + trails.length);
+        }
+
+        return;
+    }
 
     oscillateCamera();
 
@@ -191,7 +211,7 @@ var animate = function () {
         if ( collisionResults.length > 0 && collisionResults[0].distance < directionVector.length() ) {
             sound.pause();
 
-            throw Error('game over!');
+            lose = true;
         }
     }
 
