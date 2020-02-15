@@ -81,7 +81,7 @@ function oscillateCamera() {
 }
 
 var yeahboi_text = null;
-var yeahboi_text_position = -4.4;
+var yeahboi_text_position = -4.65;
 
 var setupText = function () {
     var loader = new THREE.FontLoader();
@@ -110,7 +110,7 @@ setupText();
 
 var sound = new Howl({
     src: ['/mp3/sound.mp3'],
-    autoplay: true,
+    autoplay: false,
     loop: true,
     volume: 0.25,
     onend: function() {
@@ -120,12 +120,31 @@ var sound = new Howl({
 
 var frame = 0;
 
-var lose = lose_dialog_shown = false;
+var lose = lose_dialog_shown = started = false;
+
+var titletext = document.createElement('div');
+titletext.style.position = 'absolute';
+titletext.style.width = 500;
+titletext.style.height = 500;
+//titletext.style['font-face'] = 'Impact';
+titletext.innerHTML = 'Press spacebar to jump. Click here to begin';
+titletext.style.top = '42%';
+titletext.style.left = '42%';
+titletext.addEventListener("click", function (e) {
+    sound.play();
+    started = true;
+    e.target.innerHTML = '';
+}, false);
+document.body.appendChild(titletext);
 
 var animate = function () {
-    frame++;
-
     requestAnimationFrame( animate );
+
+    if (! started) {
+        return renderer.render(scene, camera);
+    }
+
+    frame++;
 
     if (lose) {
         if (! lose_dialog_shown) {
@@ -215,7 +234,7 @@ var animate = function () {
         }
     }
 
-    if (frame % 25 === 0) {
+    if (frame % 20 === 0) {
         var trail = new THREE.Mesh(
             geometry,
             new THREE.MeshBasicMaterial( { color: 0x444444, opacity: 0.8, transparent: true } )
