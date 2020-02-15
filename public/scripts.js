@@ -1,7 +1,6 @@
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera( 45, window.innerWidth/window.innerHeight, 0.1, 1000 );
 var keyboard = new THREEx.KeyboardState();
-var clock = new THREE.Clock();
 
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
@@ -63,8 +62,6 @@ var thetaY = 0;
 var thetaZ = 0;
 
 var trails = [];
-var last_trail_emitted_at = null;
-var trail_time_interval = 0.4;
 
 function degrees_to_radians(degrees)
 {
@@ -84,7 +81,7 @@ function oscillateCamera() {
 }
 
 var yeahboi_text = null;
-var yeahboi_text_position = -3;
+var yeahboi_text_position = -4.4;
 
 var setupText = function () {
     var loader = new THREE.FontLoader();
@@ -101,10 +98,9 @@ var setupText = function () {
 
         var text_material = new THREE.MeshBasicMaterial( { color: 0x444444, opacity: 0.8, transparent: true } )
 
-        text_geometry.center();
-
         yeahboi_text = new THREE.Mesh(text_geometry, text_material);
-        yeahboi_text.position.x -= yeahboi_text_position;
+        yeahboi_text.position.x = yeahboi_text_position;
+        yeahboi_text.position.y = -0.5;
 
         scene.add(yeahboi_text);
     });
@@ -122,7 +118,11 @@ var sound = new Howl({
     }
 });
 
+var frame = 0;
+
 var animate = function () {
+    frame++;
+
     requestAnimationFrame( animate );
 
     oscillateCamera();
@@ -195,11 +195,7 @@ var animate = function () {
         }
     }
 
-    var delta = clock.getElapsedTime();
-
-    if (last_trail_emitted_at === null || delta > (last_trail_emitted_at + trail_time_interval)) {
-        last_trail_emitted_at = delta;
-
+    if (frame % 25 === 0) {
         var trail = new THREE.Mesh(
             geometry,
             new THREE.MeshBasicMaterial( { color: 0x444444, opacity: 0.8, transparent: true } )
