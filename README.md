@@ -1,18 +1,5 @@
-# Three.js boilerplate
-This is a simple three.js boilerplate for new projects, feel free to contribute!
+# YEAHBOI
 
-### Setup
-Run the setup script to make the repository your own!
+First shot at three.js, modeled off the [OG](https://github.com/57963/57963.github.io).
 
-```bash
-$ ./setup
-```
-
-Install dependencies and start your engines! This ships with a simple express.js server so we can run three.js properly without cross-origin issues.
-
-```bash
-$ npm install
-$ npm run start
-```
-
-Open http://localhost:8080 to view your project.
+This repo commits are fairly atomic, so if you're interested in a 0-60 guide to three.js, walk through each commit [step by step](https://soapstone.mradford.com/yeahboi-in-threejs).
