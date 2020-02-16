@@ -140,16 +140,18 @@ titletext.addEventListener("click", function (e) {
 
     var body = document.getElementById('body');
 
-    body.addEventListener("click", function (e) {
-        if (jumping && ! doublejumping && jump_distance < 0.07) {
-            jump_distance = 0.1;
-            acceleration_step = acceleration;
-            doublejumping = true;
-            player.rotation.z -= 0.05; // poke
-        }
+    setTimeout(function () {
+        body.addEventListener("click", function (e) {
+            if (jumping && ! doublejumping && jump_distance < 0.07) {
+                jump_distance = 0.1;
+                acceleration_step = acceleration;
+                doublejumping = true;
+                player.rotation.z -= 0.05; // poke
+            }
 
-       jumping = true;
-    });
+           jumping = true;
+        });
+    }, 1000);
 }, false);
 document.body.appendChild(titletext);
 
