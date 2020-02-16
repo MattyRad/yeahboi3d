@@ -6,6 +6,13 @@ var renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
+function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize( window.innerWidth, window.innerHeight );
+}
+window.addEventListener( 'resize', onWindowResize, false );
+
 // player
 var geometry = new THREE.BoxGeometry( 0.2, 1, 0.2 );
 var material = new THREE.MeshNormalMaterial( { color: 0x00ff00 } );
@@ -128,7 +135,7 @@ titletext.style.width = 500;
 titletext.style.height = 500;
 titletext.style.fontFamily = '"Arial Black", Gadget, sans-serif';
 titletext.style.fontSize = 18;
-titletext.innerHTML = 'Press spacebar/click to jump. Click here to begin';
+titletext.innerHTML = 'Press spacebar/click to jump. Mobile users should switch to landscape mode! Click here to begin!';
 titletext.style.top = '42%';
 titletext.style.left = '42%';
 titletext.addEventListener("click", function (e) {
