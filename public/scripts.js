@@ -185,6 +185,10 @@ var animate = function () {
             alerted = true;
 
             alert('YEAH BO' + i_concat + "\nScore: " + trails.length);
+
+            setTimeout(function () {
+                location.reload();
+            }, 1500);
         }
 
         return;
