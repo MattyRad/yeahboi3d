@@ -126,8 +126,9 @@ var titletext = document.createElement('div');
 titletext.style.position = 'absolute';
 titletext.style.width = 500;
 titletext.style.height = 500;
-//titletext.style['font-face'] = 'Impact';
-titletext.innerHTML = 'Press spacebar to jump. Click here to begin';
+titletext.style.fontFamily = '"Arial Black", Gadget, sans-serif';
+titletext.style.fontSize = 18;
+titletext.innerHTML = 'Press spacebar/click to jump. Click here to begin';
 titletext.style.top = '42%';
 titletext.style.left = '42%';
 titletext.addEventListener("click", function (e) {
