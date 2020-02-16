@@ -134,6 +134,22 @@ titletext.addEventListener("click", function (e) {
     sound.play();
     started = true;
     e.target.innerHTML = '';
+    e.target.style.display = 'none';
+    e.target.style.top = '0%';
+    e.target.style.left = '0%';
+
+    var body = document.getElementById('body');
+
+    body.addEventListener("click", function (e) {
+        if (jumping && ! doublejumping && jump_distance < 0.07) {
+            jump_distance = 0.1;
+            acceleration_step = acceleration;
+            doublejumping = true;
+            player.rotation.z -= 0.05; // poke
+        }
+
+       jumping = true;
+    });
 }, false);
 document.body.appendChild(titletext);
 
