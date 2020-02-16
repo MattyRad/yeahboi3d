@@ -131,13 +131,13 @@ var lose = lose_dialog_shown = started = false;
 
 var titletext = document.createElement('div');
 titletext.style.position = 'absolute';
-titletext.style.width = 500;
-titletext.style.height = 500;
+titletext.style.width = '100%';
+titletext.style.textAlign = 'center';
 titletext.style.fontFamily = '"Arial Black", Gadget, sans-serif';
 titletext.style.fontSize = 18;
-titletext.innerHTML = 'Press spacebar/click to jump. Mobile users should switch to landscape mode! Click here to begin!';
-titletext.style.top = '42%';
-titletext.style.left = '42%';
+titletext.innerHTML = '<h1>YEAHBOI</h1><br>Get the most I\'s on your boi!<br><br> Press spacebar/click to jump. Click here to begin!<br> (Mobile users should switch to landscape mode)';
+titletext.style.top = '0%';
+titletext.style.left = '0%';
 titletext.addEventListener("click", function (e) {
     sound.play();
     started = true;
